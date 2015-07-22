@@ -1,0 +1,136 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    INSTITUTE OF PHYSICS PUBLISHING                                   %
+%                                                                      %
+%   `Preparing an article for publication in an Institute of Physics   %
+%    Publishing journal using LaTeX'                                   %
+%                                                                      %
+%    LaTeX source code `ioplau2e.tex' used to generate `author         %
+%    guidelines', the documentation explaining and demonstrating use   %
+%    of the Institute of Physics Publishing LaTeX preprint files       %
+%    `iopart.cls, iopart12.clo and iopart10.clo'.                      %
+%                                                                      %
+%    `ioplau2e.tex' itself uses LaTeX with `iopart.cls'                %
+%                                                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+% First we have a character check
+%
+% ! exclamation mark    " double quote  
+% # hash                ` opening quote (grave)
+% & ampersand           ' closing quote (acute)
+% $ dollar              % percent       
+% ( open parenthesis    ) close paren.  
+% - hyphen              = equals sign
+% | vertical bar        ~ tilde         
+% @ at sign             _ underscore
+% { open curly brace    } close curly   
+% [ open square         ] close square bracket
+% + plus sign           ; semi-colon    
+% * asterisk            : colon
+% < open angle bracket  > close angle   
+% , comma               . full stop
+% ? question mark       / forward slash 
+% \ backslash           ^ circumflex
+%
+% ABCDEFGHIJKLMNOPQRSTUVWXYZ 
+% abcdefghijklmnopqrstuvwxyz 
+% 1234567890
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\documentclass[12pt,a4paper,final]{iopart}
+\usepackage[letterpaper]{geometry}
+\newcommand{\gguide}{{\it Preparing graphics for IOP journals}}
+%Uncomment next line if AMS fonts required
+\usepackage{iopams}  
+\usepackage{graphicx}
+\usepackage[breaklinks=true,colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue]{hyperref}
+%\usepackage[T1]{fontenc}
+%\usepackage{alltt}
+%\usepackage{underscore}
+
+\begin{document}
+
+\title[Notes on Using the LBNE Calibration Module (LCM) Control Application]{Notes on Using the LBNE Calibration Module (LCM) Control Application}
+
+\author[cor1]{Shih-Kai Lin}
+\address{Colorado State University}
+\ead{\mailto{sklin@mail.colostate.edu}}
+
+
+%\begin{abstract}
+%This document describes the  preparation of an article using \LaTeXe\ and 
+%\verb"iopart.cls" (the IOP \LaTeXe\ preprint class file).
+%This class file is designed to help 
+%authors produce preprints in a form suitable for submission to any of the
+%journals published by IOP Publishing.
+%Authors submitting to any IOP journal, i.e.\ 
+%both single- and double-column ones, should follow the guidelines set out here. 
+%On acceptance, their TeX code will be converted to 
+%the appropriate format for the journal concerned.
+%
+%\end{abstract}
+
+%Uncomment for PACS numbers title message
+%\pacs{00.00, 20.00, 42.10}
+% Keywords required only for MST, PB, PMB, PM, JOA, JOB? 
+%\vspace{2pc}
+%\noindent{\it Keywords}: Article preparation, IOP journals
+% Uncomment for Submitted to journal title message
+%\submitto{\JPA}
+% Comment out if separate title page not required
+%\maketitle
+
+\section{Introduction}
+
+This note is for using and configuring the application written for controlling the calibration signal outputs of the LBNE Calibration Module (LCM) designed and manufactured by the Argonne National Laboratory (ANL). This application is based on Martin Haigh's standalone C++ application for controlling the SiPM Signal Processor (SSP), also from ANL. Martin's original application is on the \texttt{lbne35t-gateway01.fnal.gov} machine, under the folder \texttt{/data/lbnedaq/ssp/scope}.
+
+For complete information on the LCM, see DocDB-10842. For the register map, see DocDB-9929.
+
+\section{Application Setup}
+
+Below are steps to setup and run the LCM control application. The LCM control application is located in \\
+\verb|/data/lbnedaq/scratch/skin/my_projects/LBNECalibrationModule|.
+
+\begin{enumerate}
+	\item Log in to the \texttt{lbne35t-gateway01.fnal.gov} machine. In order to see the LCM in the local network, log in to the \texttt{lbnedaq1} machine from the \texttt{gateway01}:
+	\begin{verbatim}
+		$ ssh lbnedaq1.fnal.gov
+	\end{verbatim}
+	\item Source the LBNE artdaq:
+	\begin{verbatim}
+		$ source /data/lbnedaq/ssp/setupLBNEARTDAQ
+	\end{verbatim}
+	\item Go to the application directory:
+	\begin{verbatim}
+		$ cd /data/lbnedaq/scratch/sklin/my_project/LBNECalibrationModule
+	\end{verbatim}
+	\item Export the paths of shared objects this application uses. A script is ready for this job:
+	\begin{verbatim}
+		$ source setup.sh
+	\end{verbatim}
+	\item Run the application:
+	\begin{verbatim}
+		$ bin/lcmtest.exe
+	\end{verbatim}
+\end{enumerate}
+
+\section{Application Configuration}
+Under \verb|/data/lbnedaq/scratch/skin/my_projects/LBNECalibrationModule| there is a file called lcm.conf. This is the file to configure the register values the application sets.
+
+This configuration file should be self-explanatory. Currently, the application can only set up all the registers for the three systems (TPC, IU, and Photon Detector) as a whole. To set up registers channel by channel, modification to the source code is needed.
+
+This application is currently in its infancy. If more functions are needed, please let me know.
+
+%\section*{References}
+%\begin{thebibliography}{10}
+%\bibitem{ref1} J.~Doe, Article name, \textit{Phys. Rev. Lett.}
+%
+%\bibitem{ref2} J.~Doe, J. Smith, Other article name, \textit{Phys. Rev. Lett.}
+%
+%\bibitem{web} \href{http://www.google.pl}{www.google.pl}
+%\end{thebibliography}
+
+\end{document}
+
