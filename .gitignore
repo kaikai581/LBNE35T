@@ -29,3 +29,9 @@
 
 # Temp files
 *~
+
+# TEX files
+*.aux
+*.log
+*.out
+*.gz
