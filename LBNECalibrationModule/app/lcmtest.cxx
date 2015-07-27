@@ -65,11 +65,21 @@ void Configure(SSPDAQ::DeviceInterface& dev, Setting& cfgroot){
    //     #                                      # in range 0-30V
   dev.SetRegisterByName("bias_control", (unsigned int)cfgroot["bias_control"]);
   
-  unsigned int cal_config = ((unsigned int)cfgroot["nova_enable"]) << 31 |
-                            ((unsigned int)cfgroot["trigger_source"]) << 28 |
-                            ((unsigned int)cfgroot["pulse_delay"]) << 16 |
-                            ((unsigned int)cfgroot["pulse_width_2"]) << 8 |
-                            ((unsigned int)cfgroot["pulse_width_1"]);
+  unsigned int iu_cal_config = ((unsigned int)cfgroot["iu_nova_enable"]) << 31 |
+                            ((unsigned int)cfgroot["iu_trigger_source"]) << 28 |
+                            ((unsigned int)cfgroot["iu_pulse_delay"]) << 16 |
+                            ((unsigned int)cfgroot["iu_pulse_width_2"]) << 8 |
+                            ((unsigned int)cfgroot["iu_pulse_width_1"]);
+  unsigned int tpc_cal_config = ((unsigned int)cfgroot["tpc_nova_enable"]) << 31 |
+                            ((unsigned int)cfgroot["tpc_trigger_source"]) << 28 |
+                            ((unsigned int)cfgroot["tpc_pulse_delay"]) << 16 |
+                            ((unsigned int)cfgroot["tpc_pulse_width_2"]) << 8 |
+                            ((unsigned int)cfgroot["tpc_pulse_width_1"]);
+  unsigned int pd_cal_config = ((unsigned int)cfgroot["pd_nova_enable"]) << 31 |
+                            ((unsigned int)cfgroot["pd_trigger_source"]) << 28 |
+                            ((unsigned int)cfgroot["pd_pulse_delay"]) << 16 |
+                            ((unsigned int)cfgroot["pd_pulse_width_2"]) << 8 |
+                            ((unsigned int)cfgroot["pd_pulse_width_1"]);
   dev.SetRegisterArrayByName("cal_config",            cal_config);
   dev.SetRegisterByName("cal_count", (unsigned int)cfgroot["pulse_sets"]);
   dev.SetRegisterByName("cal_trigger",               0x00000001);
