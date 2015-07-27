@@ -80,7 +80,9 @@ void Configure(SSPDAQ::DeviceInterface& dev, Setting& cfgroot){
                             ((unsigned int)cfgroot["pd_pulse_delay"]) << 16 |
                             ((unsigned int)cfgroot["pd_pulse_width_2"]) << 8 |
                             ((unsigned int)cfgroot["pd_pulse_width_1"]);
-  dev.SetRegisterArrayByName("cal_config",            cal_config);
+  dev.SetRegisterArrayByName("iu_cal_config",            iu_cal_config);
+  dev.SetRegisterArrayByName("tpc_cal_config",           tpc_cal_config);
+  dev.SetRegisterArrayByName("pd_cal_config",            pd_cal_config);
   dev.SetRegisterByName("cal_count", (unsigned int)cfgroot["pulse_sets"]);
   dev.SetRegisterByName("cal_trigger",               0x00000001);
 }

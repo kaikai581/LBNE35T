@@ -575,6 +575,9 @@ SSPDAQ::RegMap& SSPDAQ::RegMap::Get(void)
     instance->fNamed["adc_data_monitor"]        =Register(  0x80000840, 0x0000FFFF, 0x00000000, 12);     
     instance->fNamed["adc_status"]              =Register(  0x80000880, 0xFFFFFFFF, 0x00000000, 12);
     instance->fNamed["cal_config"]              =Register(  0x800003C0, 0xFFFFFFFF, 0xFFFFFFFF, 12);
+    instance->fNamed["iu_cal_config"]           =Register(  0x800003C0, 0xFFFFFFFF, 0xFFFFFFFF, 4 );
+    instance->fNamed["tpc_cal_config"]          =Register(  0x800003D0, 0xFFFFFFFF, 0xFFFFFFFF, 3 );
+    instance->fNamed["pd_cal_config"]           =Register(  0x800003DC, 0xFFFFFFFF, 0xFFFFFFFF, 5 );
     instance->fNamed["cal_count"]               =Register(  0x80000448, 0x0001FFFF, 0x0001FFFF, 1 );
     instance->fNamed["cal_status"]              =Register(  0x8000044C, 0x00000FFF, 0x00000000, 1 );
     instance->fNamed["cal_trigger"]             =Register(  0x80000444, 0x00000000, 0x00000001, 1 );
