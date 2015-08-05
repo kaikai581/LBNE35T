@@ -1,0 +1,1 @@
+gcc main.c -o read -Wall -Wextra -L. -L/home/kaikai/Work/SSP_DAQ/NewPrototypeByDenver/FTDI-D2XX/build/x86_64 -lftd2xx -Wl,-rpath /home/kaikai/Work/SSP_DAQ/NewPrototypeByDenver/FTDI-D2XX/build/x86_64 -ldl -pthread
