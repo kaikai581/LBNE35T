@@ -22,7 +22,7 @@ class App:
   def __init__(self, master):
 
     # load configuration from existing config file
-    projectdir = os.getenv('PROJECT_ROOT', '.')
+    projectdir = os.getenv('PROJECT_ROOT', '..')
     self.config_fname = projectdir + '/lcm.conf'
     self.GetConfigParams(self.config_fname)
     #~ for x in self.config_params:
