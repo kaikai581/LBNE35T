@@ -54,9 +54,9 @@
 
 \title[Notes on Using the LBNE Calibration Module (LCM) Control Application]{Notes on Using the LBNE Calibration Module (LCM) Control Application}
 
-\author[cor1]{Shih-Kai Lin}
-\address{Colorado State University}
-\ead{\mailto{sklin@mail.colostate.edu}}
+\author[cor1]{Shih-Kai Lin, Jonathan Insler}
+\address{Colorado State University, Lousiana State University}
+\ead{\mailto{sklin@mail.colostate.edu},\mailto{insler@phys.lsu.edu}}
 
 
 %\begin{abstract}
@@ -91,7 +91,7 @@ For complete information on the LCM, see DocDB-10842. For the register map, see 
 \section{Application Setup}
 
 Below are steps to setup and run the LCM control application. The LCM control application is located in \\
-\verb|/data/lbnedaq/scratch/skin/my_projects/LBNECalibrationModule|.
+\verb|/data/lbnedaq/scratch/sklin/git_projects/LBNE35T/LBNECalibrationModule/|.
 
 \begin{enumerate}
 	\item Log in to the \texttt{lbne35t-gateway01.fnal.gov} machine. In order to see the LCM in the local network, log in to the \texttt{lbnedaq1} machine from the \texttt{gateway01}:
@@ -104,7 +104,7 @@ Below are steps to setup and run the LCM control application. The LCM control ap
 	\end{verbatim}
 	\item Go to the application directory:
 	\begin{verbatim}
-		$ cd /data/lbnedaq/scratch/sklin/my_project/LBNECalibrationModule
+		$ cd /data/lbnedaq/scratch/sklin/git_projects/LBNE35T/LBNECalibrationModule
 	\end{verbatim}
 	\item Export the paths of shared objects this application uses. A script is ready for this job:
 	\begin{verbatim}
@@ -117,11 +117,11 @@ Below are steps to setup and run the LCM control application. The LCM control ap
 \end{enumerate}
 
 \section{Application Configuration}
-Under \verb|/data/lbnedaq/scratch/skin/my_projects/LBNECalibrationModule| there is a file called lcm.conf. This is the file to configure the register values the application sets.
+Under \verb|/data/lbnedaq/scratch/sklin/git_projects/LBNE35T/LBNECalibrationModule/| there is a file called lcm.conf. This is the file to configure the register values the application sets.
 
-This configuration file should be self-explanatory. Currently, the application can only set up all the registers for the three systems (TPC, IU, and Photon Detector) as a whole. To set up registers channel by channel, modification to the source code is needed.
+This configuration file should be self-explanatory. Currently, the application can set up the registers for the TPC and IU systems independently and the registers for each PD channel individually. To set up registers channel by channel for the TPC and IU systems, additional modification to the source code is needed. A GUI frontend for setting lcm.conf interactively is available but may not yet run on the DAQ machines.
 
-This application is currently in its infancy. If more functions are needed, please let me know.
+This application is currently in its infancy. If more functions are needed, please let us know.
 
 %\section*{References}
 %\begin{thebibliography}{10}

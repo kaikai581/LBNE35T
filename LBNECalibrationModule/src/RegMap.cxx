@@ -577,7 +577,12 @@ SSPDAQ::RegMap& SSPDAQ::RegMap::Get(void)
     instance->fNamed["cal_config"]              =Register(  0x800003C0, 0xFFFFFFFF, 0xFFFFFFFF, 12);
     instance->fNamed["iu_cal_config"]           =Register(  0x800003C0, 0xFFFFFFFF, 0xFFFFFFFF, 4 );
     instance->fNamed["tpc_cal_config"]          =Register(  0x800003D0, 0xFFFFFFFF, 0xFFFFFFFF, 3 );
-    instance->fNamed["pd_cal_config"]           =Register(  0x800003DC, 0xFFFFFFFF, 0xFFFFFFFF, 5 );
+    //instance->fNamed["pd_cal_config"]           =Register(  0x800003DC, 0xFFFFFFFF, 0xFFFFFFFF, 5 );
+    instance->fNamed["pd1_cal_config"]          =Register(  0x800003DC, 0xFFFFFFFF, 0xFFFFFFFF, 1 );
+    instance->fNamed["pd2_cal_config"]          =Register(  0x800003E0, 0xFFFFFFFF, 0xFFFFFFFF, 1 );
+    instance->fNamed["pd3_cal_config"]          =Register(  0x800003E4, 0xFFFFFFFF, 0xFFFFFFFF, 1 );
+    instance->fNamed["pd4_cal_config"]          =Register(  0x800003E8, 0xFFFFFFFF, 0xFFFFFFFF, 1 );
+    instance->fNamed["pd5_cal_config"]          =Register(  0x800003EC, 0xFFFFFFFF, 0xFFFFFFFF, 1 );
     instance->fNamed["cal_count"]               =Register(  0x80000448, 0x0001FFFF, 0x0001FFFF, 1 );
     instance->fNamed["cal_status"]              =Register(  0x8000044C, 0x00000FFF, 0x00000000, 1 );
     instance->fNamed["cal_trigger"]             =Register(  0x80000444, 0x00000000, 0x00000001, 1 );
