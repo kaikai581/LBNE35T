@@ -1,0 +1,11 @@
+Below is the order in which your files should be run in order to properly do analysis/reconstruction:
+
+lar -c prodsingle_digitized.fcl  -o prodsingle_gen.root  -T prodsingle_hist.root
+lar -c reconstruction.fcl -s prodsingle_gen.root -o reconstruction_gen.root -T reconstruction_hist.root
+lar -c analyze_hitdump.fcl -s reconstruction_gen.root -o analyze_gen.root -T analyze_hist.root
+lar -c photana.fcl -s analyze_gen.root -o photana_gen.root -T photana_hist.root
+
+You can then look at photana_hist.root for final results. I included a looping script called looper.C
+looper.C can be used in photana_hist.root to look at results in anatree, a TTree in photana_hist.root
+I have done my best to explain what each part of looper.C does in the comments
+
