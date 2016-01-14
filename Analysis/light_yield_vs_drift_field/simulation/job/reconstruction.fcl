@@ -1,0 +1,125 @@
+#include "services_dune.fcl"
+#include "caldata_dune.fcl"
+#include "hitfindermodules_dune.fcl"
+#include "hitdumper.fcl"
+#include "opticaldetectormodules_dune.fcl"
+#include "opticaldetectorservices_dune.fcl"
+
+
+process_name: Reco
+
+services:
+{
+  # Load the service that manages root files for histograms.
+  TFileService: { fileName: "prod_hist.root" }
+  Timing:       {}
+  SimpleMemoryCheck:     { ignoreTotal: 1 } # default is one
+  RandomNumberGenerator: {} #ART native random number generator
+  user:         @local::dune35t_services
+}
+
+# LBNE 35ton w/o wires and mesh
+services.user.OpDigiProperties:        @local::dune35t_opdigiproperties
+
+#source is now a root file
+source:
+{
+  module_type: RootInput
+  maxEvents:  -1      # Number of events to create
+}
+
+outputs:
+{
+ out1:
+ {
+   module_type: RootOutput
+   fileName:    "standard_prod.root" #default file name, can override from command line with -o or --output
+   SelectEvents: {SelectEvents: [reco] }
+ }
+
+ 
+}
+
+# Define and configure some modules to do work on each event.
+# First modules are defined; they are scheduled later.
+# Modules are grouped by type.
+physics:
+{
+
+ producers:{
+    caldata:      @local::dune35t_calwire	
+# actual hit finder 
+    gaushit:      @local::dune35t_gaushitfinder
+# disambiguation cheater that removes duplicate hits
+    dcheat:       @local::standard_disambigcheat
+# hit cheater that replaces gasuhit and gaushit+dcheat
+    hitcheat:     @local::dune35t_hitcheater
+# random number saver is not used
+    rns:          {module_type: "RandomNumberSaver"}
+    
+   
+    opflash:   @local::dune35t_opflash
+
+    }
+# Note that the hit cheater uses
+#   truth information to assign time and space coordinates
+#   to the hit for the charge arriving at each wire - 
+#   so the detector granularity due to the wire spacing
+#   is still present, the charge loss to impurities is present, 
+#   but detector smearing of charge, time and position coords is not.
+
+ filters:{
+#    filter:  @local::evtfilter
+    } 
+
+  //analyzers:{
+    //hitdumper: @local::hitdumper
+    //opflashana:  @local::dune35t_opflashana
+    //}
+
+#define the producer and filter modules for this path, order matters, 
+#
+#  IF YOU SWITCH HIT FINDERS CHANGE LINE BELOW FOR HITDUMPER
+#
+# use line below if you want to cheat hit finding and disambiguation
+ reco: [ caldata, hitcheat, opflash, gaushit]
+# use line below if you want real hit finding but still perfect disambiguation
+# reco: [ caldata, gaushit, dcheat]
+ //ana: [ hitdumper, opflashana  ]
+ 
+ #define the output stream, there could be more than one if using filters 
+ stream1:  [out1]
+ 
+ #trigger_paths is a keyword and contains the paths that modify the art::event, 
+ #ie filters and producers
+   trigger_paths: [reco] 
+
+ #end_paths is a keyword and contains the paths that do not modify the art::Event, 
+ #ie analyzers and output streams.  these all run simultaneously
+ end_paths:     [ stream1] 
+ 
+}
+
+# define the list of LArSoft modules to run through the simulate path
+#physics.analyzers.hitdumper.HitsModuleLabel: "gaushit"
+#physics.producers.gaushit.CalDataModuleLabel: "caldata"
+#physics.producers.caldata.DigitModuleLabel:                     "daq"
+physics.producers.gaushit.IndMinWidth: 1.0
+physics.producers.gaushit.ColMinWidth: 1.0
+
+#gaus hit finder defaults
+#for dune35t: IndMinWidth: 1.0 and ColMinWidth: 1.0
+#
+# CalDataModuleLabel:  "caldata"      
+# MinSigInd:            6.0              # Induction signal height threshold  
+# MinSigCol:            11.0             # Collection signal height threshold
+# IndWidth:             6.0           o   # Initial width for induction fit
+# ColWidth:             7.8              # Initial width for collection fit
+# IndMinWidth:          4.0              # Induction Hit width threshold
+# ColMinWidth:          6.0              # Collection hit width threshold
+# MaxMultiHit:          3                # maximum hits for multi fit   
+# AreaMethod:           0                # 0 = area by integral, 1 = area by gaussian area formula
+# AreaNorms:            [ 13.25, 26.31 ] # normalizations that put signal area in 
+                                        # same scale as peak height. 
+# Chi2NDF:              15               # maximum Chisquared / NDF allowed for a hit to be saved
+

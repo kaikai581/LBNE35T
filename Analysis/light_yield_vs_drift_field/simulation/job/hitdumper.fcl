@@ -1,0 +1,11 @@
+BEGIN_PROLOG
+
+hitdumper:
+{
+    module_type:              "HitDumper"
+    HitsModuleLabel:          "hit"
+    CounterModuleLabel:       "simcounter"
+    CombinedTimeDelay:        160
+}
+
+END_PROLOG
